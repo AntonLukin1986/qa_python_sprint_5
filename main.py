@@ -3,11 +3,14 @@ import string
 
 from selenium import webdriver
 
-from tests.registration_tests import (
-    test_sign_up_with_log_in_button_account_created,
-    test_sign_up_with_account_link_account_created,
-    test_sign_up_with_invalid_password_shows_warning
-)
+from tests.registration_tests import *
+from tests.sing_in_tests import *
+from tests.personal_account_tests import *
+from tests.categories_navigating_tests import *
+
+
+
+HOME_URL = 'https://stellarburgers.nomoreparties.site/'       ##########################################################################
 
 
 def generate_password():
@@ -48,16 +51,31 @@ def chrome_driver_init(hide):
     options.add_argument(argument='--headless' if hide else 'start-maximized')
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(time_to_wait=5)
-    driver.get(url='https://stellarburgers.nomoreparties.site/')
+    driver.get(url=HOME_URL)
     return driver
 
 
 def main(hide=False):
     '''Запуск всех тестов.'''
-    # test_sign_up_with_log_in_button_account_created(chrome_driver_init(hide), generate_login(), generate_password())
-    # test_sign_up_with_account_link_account_created(chrome_driver_init(hide), generate_login(), generate_password())
-    # test_sign_up_with_invalid_password_shows_warning(chrome_driver_init(hide))
+    test_sign_up_new_account_created(chrome_driver_init(hide), generate_login(), generate_password())
+    test_sign_up_with_invalid_password_warning(chrome_driver_init(hide))
+
+    test_sign_in_with_enter_account_button(chrome_driver_init(hide), generate_login(), generate_password())
+    test_sign_in_with_account_link(chrome_driver_init(hide), generate_login(), generate_password())
+    test_sign_in_with_link_in_registration_form(chrome_driver_init(hide), generate_login(), generate_password())
+    test_sign_in_with_link_in_restore_password_form(chrome_driver_init(hide), generate_login(), generate_password())
+
+    test_enter_account_with_account_link(chrome_driver_init(hide), generate_login(), generate_password())
+    test_switch_from_account_with_constructor_link(chrome_driver_init(hide), generate_login(), generate_password())
+    test_switch_from_account_with_logo_link(chrome_driver_init(hide), generate_login(), generate_password())
+    test_log_out_from_account_with_exit_button(chrome_driver_init(hide), generate_login(), generate_password())
+
+    test_switch_to_buns_in_constructor(chrome_driver_init(hide))
+    test_switch_to_sauces_in_constructor(chrome_driver_init(hide))
+    test_switch_to_toppings_in_constructor(chrome_driver_init(hide))
 
 
 if __name__ == '__main__':
     main(hide=True)
+    #print(generate_login())
+    #print(generate_password())
