@@ -11,13 +11,13 @@ PROFILE_FIELDS = '''\
 .//li[contains(@class, "profile")]//label[text()="{field}"]/parent::div/input
 '''
 # разделы «Булки», «Соусы» или «Начинки» в конструкторе
-CATEGORIES = '''\
-.//span[text()="{name}"]/parent::div
-'''
+CATEGORIES = './/span[text()="{name}"]/parent::div'
+# кнопки «Войти в аккаунт» или «Оформить заказ» в секции "корзина"
+BASKET_BUTTON = './/button[text()="Оформить заказ"]'
 
 # ДЛЯ СОЗДАНИЯ АККАУНТА:
 # ссылка «Личный кабинет»
-ACCOUNT_LINK = './/a[@href="/account"]/p[text()="Личный Кабинет"]'
+ACCOUNT_LINK = './/p[text()="Личный Кабинет"]'
 # ссылка «Зарегистрироваться»
 SIGN_UP_LINK = './/a[@href="/register" and text()="Зарегистрироваться"]'
 # поле ввода «Имя» формы «Регистрация»
@@ -41,21 +41,42 @@ SIGN_IN_PASSWORD_INPUT = FORM_FIELDS.format(form='Вход', field='Пароль
 # кнопка «Войти» формы «Вход»
 SIGN_IN_BUTTON = (FORM + BUTTON).format(form='Вход', btn='Войти')
 
-# ДЛЯ ПРОВЕРКИ ПРОФИЛЯ
+# ДЛЯ ПРОВЕРКИ ПРОФИЛЯ:
 # ссылка «Профиль»
 PROFILE_LINK = './/a[@href="/account/profile" and text()="Профиль"]'
 # поле «Имя» профиля
 PROFILE_NAME = PROFILE_FIELDS.format(field='Имя')
 # поле «Логин» профиля
 PROFILE_LOGIN = PROFILE_FIELDS.format(field='Логин')
+# указатель на страницу личного кабинета
+PERSONAL_ACCOUNT = (
+    './/p[text()="В этом разделе вы можете изменить свои персональные данные"]'
+)
+# кнопка «Выход» в личном кабинете
+EXIT_BUTTON = './/button[text()="Выход"]'
 
+# ЭЛЕМЕНТЫ НА ГЛАВНОЙ СТРАНИЦЕ:
+# кнопка «Войти в аккаунт»
+ENTER_ACCOUNT_BUTTON = BUTTON.format(btn='Войти в аккаунт')
+# ссылка «Конструктор»
+CONSTRUCTOR_LINK = './/a[@href="/" and p[text()="Конструктор"]]'
+# ссылка-логотип «Stellar Burgers»
+LOGO_LINK = './/div[contains(@class, "log")]/a[@href="/"]'
+# заголовок «Соберите бургер»
+CONSTRUCT_BURGER_HEADER = './/h1[text()="Соберите бургер"]'
+# раздел «Булки» в конструкторе
+BUNS = CATEGORIES.format(name='Булки')
+# раздел «Соусы» в конструкторе
+SAUCES = CATEGORIES.format(name='Соусы')
+# раздел «Начинки» в конструкторе
+TOPPINGS = CATEGORIES.format(name='Начинки')
+
+# ОСТАЛЬНОЕ:
 # предупреждающее сообщение «Некорректный пароль»
 INVALID_PASSWORD_WARNING = (
     FORM.format(form='Регистрация') +
     '//p[@class="input__error text_type_main-default"]'
 )
-# кнопка «Войти в аккаунт» на главной странице
-ENTER_ACCOUNT_BUTTON = BUTTON.format(btn='Войти в аккаунт')
 # ссылка «Войти» под формой «Регистрация»
 SIGN_IN_LINK = '''\
 .//p[text()="Уже зарегистрированы?"]/a[@href="/login" and text()="Войти"]
@@ -69,22 +90,6 @@ text()="Восстановить пароль"]
 REMEMBER_PASSWORD_SIGN_IN_LINK = '''\
 .//p[text()="Вспомнили пароль?"]/a[@href="/login" and text()="Войти"]
 '''
-# ссылка «Конструктор» на главной странице
-CONSTRUCTOR_LINK = './/a[@href="/"]/p[text()="Конструктор"]'
-# ссылка-логотип «Stellar Burgers» на главной странице
-LOGO_LINK = './/div[contains(@class, "log")]/a[@href="/"]'
-# заголовок «Соберите бургер»
-CONSTRUCT_BURGER_HEADER = './/h1[text()="Соберите бургер"]'
-# кнопка «Выход» в личном кабинете
-EXIT_BUTTON = BUTTON.format(btn='Выход')
-# раздел «Булки» в конструкторе
-BUNS = CATEGORIES.format(name='Булки')
-# раздел «Соусы» в конструкторе
-SAUCES = CATEGORIES.format(name='Соусы')
-# раздел «Начинки» в конструкторе
-TOPPINGS = CATEGORIES.format(name='Начинки')
-# раздел «Булки» в конструкторе для проверки активности
-
 
 if __name__ == '__main__':
-    print(BUNS)
+    print(BASKET_BUTTON)
