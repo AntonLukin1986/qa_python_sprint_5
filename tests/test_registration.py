@@ -43,9 +43,7 @@ class TestRegistration:
         driver.find_element(*loc.PROFILE_LINK).click()
         assert (
             driver.find_element(*loc.PROFILE_NAME).get_attribute(name='value')
-            == USER_NAME
-        )
-        assert (
+            == USER_NAME and
             driver.find_element(*loc.PROFILE_LOGIN).get_attribute(name='value')
             == generate_login
         )
